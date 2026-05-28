@@ -84,3 +84,59 @@ body {
 .key-zero {
   grid-column: span 2;
 }
+
+.history {
+  margin-top: 16px;
+  background: #1a1a26;
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #cfcfe0;
+  font-size: 0.9rem;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  color: #8888a0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+}
+
+.history-clear {
+  background: transparent;
+  border: none;
+  color: #ff9500;
+  cursor: pointer;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.history-clear:hover {
+  text-decoration: underline;
+}
+
+.history-list {
+  list-style: none;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.history-list li {
+  padding: 4px 0;
+  border-bottom: 1px solid #2b2b3d;
+  font-family: "SF Mono", Menlo, monospace;
+}
+
+.history-list li:last-child {
+  border-bottom: none;
+}
+
+.history-list .empty {
+  color: #555570;
+  font-style: italic;
+  border-bottom: none;
+}

@@ -1,12 +1,42 @@
 const display = document.getElementById('display');
+const historyList = document.getElementById('historyList');
+const historyClearBtn = document.getElementById('historyClear');
 
+const HISTORY_MAX = 5;
 let current = '0';
 let previous = null;
 let operator = null;
 let resetNext = false;
+let history = [];
 
 function render() {
   display.textContent = current;
+}
+
+function renderHistory() {
+  historyList.innerHTML = '';
+  if (history.length === 0) {
+    const li = document.createElement('li');
+    li.className = 'empty';
+    li.textContent = 'No calculations yet';
+    historyList.appendChild(li);
+    return;
+  }
+  for (const entry of history) {
+    const li = document.createElement('li');
+    li.textContent = entry;
+    historyList.appendChild(li);
+  }
+}
+
+function pushHistory(expression) {
+  history.unshift(expression);
+  if (history.length > HISTORY_MAX) history.length = HISTORY_MAX;
+  renderHistory();
+}
+
+function opSymbol(op) {
+  return { '+': '+', '-': '−', '*': '×', '/': '÷' }[op] || op;
 }
 
 function inputDigit(d) {
@@ -72,8 +102,11 @@ function setOperator(op) {
 
 function equals() {
   if (operator === null || previous === null) return;
-  const result = compute(previous, parseFloat(current), operator);
-  current = formatResult(result);
+  const rhs = parseFloat(current);
+  const result = compute(previous, rhs, operator);
+  const formatted = formatResult(result);
+  pushHistory(`${previous} ${opSymbol(operator)} ${rhs} = ${formatted}`);
+  current = formatted;
   previous = null;
   operator = null;
   resetNext = true;
@@ -108,4 +141,10 @@ document.addEventListener('keydown', (e) => {
   if (e.key === '%') return percent();
 });
 
+historyClearBtn.addEventListener('click', () => {
+  history = [];
+  renderHistory();
+});
+
 render();
+renderHistory();
