@@ -20,3 +20,4 @@ Click the buttons, or use the keyboard:
 - `Enter` or `=` to evaluate
 - `Esc` or `C` to clear
 - `%` for percent
+- `Backspace` to delete the last digit
